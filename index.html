@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Caisse - Maison du Pain</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #ebdccb; color: #5c4033; padding: 20px; display: flex; gap: 20px; justify-content: center; }
+        .container { display: flex; gap: 20px; max-width: 1100px; width: 100%; }
+        .menu-section { background: #fdfbf7; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex: 2; border: 2px solid #c9a68a; }
+        .ticket-section { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex: 1.2; display: flex; flex-direction: column; border: 2px solid #c9a68a; min-width: 340px; }
+        h1, h2, h3 { text-align: center; color: #a06a42; margin-top: 0; text-transform: uppercase; }
+        h1 { border-bottom: 3px double #c9a68a; padding-bottom: 5px; font-size: 22px; }
+        h3 { border-left: 4px solid #a06a42; padding-left: 8px; text-align: left; font-size: 14px; margin: 15px 0 8px 0; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .item-row { display: flex; background: #f7f1e8; border-radius: 6px; overflow: hidden; align-items: center; border: 1px solid #e3d1be; }
+        .item-info { flex-grow: 1; padding: 8px 10px; font-size: 13px; font-weight: 600; }
+        .item-price { font-size: 12px; color: #a06a42; font-weight: normal; }
+        .btn-action { width: 35px; height: 100%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.1s; }
+        .btn-plus { background: #a06a42; color: white; }
+        .btn-plus:hover { background: #b87d52; }
+        .btn-minus { background: #e3d1be; color: #5c4033; }
+        .btn-minus:hover { background: #d2bc9e; }
+        .ticket-list { min-height: 120px; border-bottom: 1px dashed #c9a68a; margin-bottom: 10px; }
+        .ticket-line { padding: 6px 0; font-size: 14px; border-bottom: 1px solid #f7f1e8; }
+        .ticket-main { display: flex; justify-content: space-between; font-weight: bold; }
+        .cuisine-section { background: #fcf8f2; border: 2px dashed #d35400; padding: 12px; border-radius: 8px; margin-bottom: 15px; }
+        .cuisine-title { font-weight: bold; color: #d35400; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; display: flex; align-items: center; gap: 5px; }
+        .cuisine-line { font-size: 14px; padding: 3px 0; color: #2c3e50; font-weight: 600; }
+        .promo-line { color: #27ae60; font-weight: bold; font-size: 13px; padding: 4px 0; }
+        .total-box { font-size: 26px; font-weight: bold; background: #a06a42; color: white; padding: 15px; text-align: center; border-radius: 8px; margin-top: auto; margin-bottom: 10px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.2); }
+        .btn-clear { background: #c0392b; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; text-transform: uppercase; }
+        .btn-clear:hover { background: #e74c3c; }
+        .note { font-size: 11px; text-align: center; color: #8e8e8e; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- SECTION DES PRODUITS -->
+    <div class="menu-section">
+        <h1>🥖 Maison du Pain - Caisse RP</h1>
+        
+        <h3>Viennoiseries & Pains (Offre 3+1)</h3>
+        <div class="grid">
+            <div class="item-row"><div class="item-info">Croissant <span class="item-price">(3€)</span></div><button class="btn-action btn-minus" onclick="modifier('Croissant', 3, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Croissant', 3, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Pain au Chocolat <span class="item-price">(3€)</span></div><button class="btn-action btn-minus" onclick="modifier('Pain au Chocolat', 3, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Pain au Chocolat', 3, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Baguette <span class="item-price">(2€)</span></div><button class="btn-action btn-minus" onclick="modifier('Baguette', 2, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Baguette', 2, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Baguette Tradition <span class="item-price">(2€)</span></div><button class="btn-action btn-minus" onclick="modifier('Baguette Tradition', 2, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Baguette Tradition', 2, 1)">+</button></div>
+        </div>
+
+        <h3>Pâtisseries & Snacks</h3>
+        <div class="grid">
+            <div class="item-row"><div class="item-info">Éclair au Chocolat <span class="item-price">(4€)</span></div><button class="btn-action btn-minus" onclick="modifier('Éclair au Chocolat', 4, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Éclair au Chocolat', 4, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Tartelette Fraise <span class="item-price">(5€)</span></div><button class="btn-action btn-minus" onclick="modifier('Tartelette Fraise', 5, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Tartelette Fraise', 5, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Tarte aux Pommes <span class="item-price">(5€)</span></div><button class="btn-action btn-minus" onclick="modifier('Tarte aux Pommes', 5, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Tarte aux Pommes', 5, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Cheesecake Framboise <span class="item-price">(6€)</span></div><button class="btn-action btn-minus" onclick="modifier('Cheesecake Framboise', 6, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Cheesecake Framboise', 6, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Jambon Beurre <span class="item-price">(7€)</span></div><button class="btn-action btn-minus" onclick="modifier('Jambon Beurre', 7, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Jambon Beurre', 7, 1)">+</button></div>
+        </div>
+
+        <h3>Boissons (Offre 3+1)</h3>
+        <div class="grid">
+            <div class="item-row"><div class="item-info">Café <span class="item-price">(2€)</span></div><button class="btn-action btn-minus" onclick="modifier('Café', 2, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Café', 2, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Chocolat Chaud <span class="item-price">(2€)</span></div><button class="btn-action btn-minus" onclick="modifier('Chocolat Chaud', 2, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Chocolat Chaud', 2, 1)">+</button></div>
+        </div>
+
+        <h3>Formules Menus</h3>
+        <div class="grid">
+            <div class="item-row"><div class="item-info">Menu Gourmand <span class="item-price">(9€)</span></div><button class="btn-action btn-minus" onclick="modifier('Menu Gourmand', 9, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Menu Gourmand', 9, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Balade Sucrée <span class="item-price">(12€)</span></div><button class="btn-action btn-minus" onclick="modifier('Balade Sucrée', 12, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Balade Sucrée', 12, 1)">+</button></div>
+            <div class="item-row"><div class="item-info">Pause du Gus' <span class="item-price">(14€)</span></div><button class="btn-action btn-minus" onclick="modifier('Pause du Gus\'', 14, -1)">-</button><button class="btn-action btn-plus" onclick="modifier('Pause du Gus\'', 14, 1)">+</button></div>
+        </div>
+    </div>
+
+    <!-- SECTION TICKET DE CAISSE -->
+    <div class="ticket-section">
+        <h2>🧾 Facturation</h2>
+        <div id="ticket-list" class="ticket-list">
+            <p style="color:#a06a42; text-align:center; font-style:italic; margin-top:20px;">Commande vide</p>
+        </div>
+        
+        <!-- SECTION COMPOSITION CUISINE -->
+        <div class="cuisine-section">
+            <div class="cuisine-title">📦 À donner au client (Cuisine) :</div>
+            <div id="cuisine-list" style="font-style: italic; color: #7f8c8d;">Rien à préparer</div>
+        </div>
+
+        <div id="promo-section"></div>
+        <div class="total-box">TOTAL : <span id="total-prix">0</span> €</div>
+        <button class="btn-clear" onclick="reinitialiser()">Nouvelle Commande</button>
+        <div class="note">Maison du Pain - Paris © Système automatique : toutes les 3 unités payées, le 4ème article offert s'ajoute directement à la cuisine.</div>
+    </div>
+</div>
+
+<script>
+    let commande = {};
+
+    const detailsMenus = {
+        'Menu Gourmand': { 'Viennoiserie (Croissant/Pain au Choc)': 1, 'Boisson (Café/Choco)': 1, 'Éclair au Chocolat': 1 },
+        'Balade Sucrée': { 'Tartelette Fraise': 1, 'Boisson (Café/Choco)': 1, 'Viennoiserie (Croissant/Pain au Choc)': 1 },
+        'Pause du Gus\'': { 'Jambon Beurre': 1, 'Cheesecake Framboise': 1, 'Boisson (Café/Choco)': 1 }
+    };
+
+    function modifier(nom, prix, changement) {
+        if (!commande[nom]) {
+            commande[nom] = { prix: prix, qte: 0 };
+        }
+        commande[nom].qte += changement;
+        if (commande[nom].qte <= 0) {
+            delete commande[nom];
+        }
+        majCaisse();
+    }
+
+    function reinitialiser() {
+        commande = {};
+        majCaisse();
+    }
+
+    function majCaisse() {
+        let htmlTicket = "";
+        let htmlPromo = "";
+        let totalBrut = 0;
+        let totalReductions = 0;
+
+        let preparationCuisine = {};
+        let produitsEligiblesPromo = ['Croissant', 'Pain au Chocolat', 'Baguette', 'Baguette Tradition', 'Café', 'Chocolat Chaud'];
+
+        for (let nom in commande) {
+            let item = commande[nom];
+            let prixLigne = item.qte * item.prix;
+            totalBrut += prixLigne;
+
+            htmlTicket += `<div class="ticket-line">
+                <div class="ticket-main">
+                    <span><strong>${item.qte}x</strong> ${nom}</span>
+                    <span>${prixLigne} €</span>
+                </div>
+            </div>`;
+
+            // Ajout basique à la cuisine (Menus décortiqués ou articles seuls)
+            if (detailsMenus[nom]) {
+                for (let composant in detailsMenus[nom]) {
+                    let qteComposant = detailsMenus[nom][composant] * item.qte;
+                    preparationCuisine[composant] = (preparationCuisine[composant] || 0) + qteComposant;
+                }
+            } else {
+                preparationCuisine[nom] = (preparationCuisine[nom] || 0) + item.qte;
+            }
+
+            // LOGIQUE PROMO AUTOMATIQUE : 
+            // Si le vendeur saisit "3", la cuisine reçoit 3 + 1 offert = 4.
+            if (produitsEligiblesPromo.includes(nom) && item.qte >= 3) {
+                // On calcule combien de lots de 3 ont été achetés
+                let lotsDeTrois = Math.floor(item.qte / 3);
+                
+                // On ajoute ces articles offerts directement à la préparation cuisine !
+                preparationCuisine[nom] = (preparationCuisine[nom] || 0) + lotsDeTrois;
+                
+                htmlPromo += `<div class="promo-line">🎁 +${lotsDeTrois} ${nom} Offert(s) ajouté(s) en cuisine !</div>`;
+            }
+        }
+
+        // Construction de la liste cuisine
+        let htmlCuisine = [];
+        for (let prod in preparationCuisine) {
+            htmlCuisine.push(`<div class="cuisine-line">✔️ ${preparationCuisine[prod]}x ${prod}</div>`);
+        }
+
+        // Le prix total reste le prix brut, car le vendeur n'a cliqué que sur 3 articles payants
+        let totalAFacturer = totalBrut; 
+
+        document.getElementById('ticket-list').innerHTML = htmlTicket || `<p style="color:#a06a42; text-align:center; font-style:italic; margin-top:20px;">Commande vide</p>`;
+        document.getElementById('cuisine-list').innerHTML = htmlCuisine.join("") || "Rien à préparer";
+        document.getElementById('promo-section').innerHTML = htmlPromo;
+        document.getElementById('total-prix').innerText = totalAFacturer;
+    }
+</script>
+
+</body>
+</html>
