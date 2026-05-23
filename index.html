@@ -15,17 +15,17 @@
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
         .item-row { display: flex; background: #f7f1e8; border-radius: 6px; overflow: hidden; align-items: center; border: 1px solid #e3d1be; }
         
-        /* Zone centrale rendue cliquable comme un bouton */
-        .item-info { flex-grow: 1; padding: 8px 10px; font-size: 13px; font-weight: 600; display: flex; flex-direction: column; cursor: pointer; text-align: left; background: none; border: none; color: #5c4033; font-family: inherit; height: 100%; justify-content: center; transition: background 0.1s; }
+        /* Zone centrale cliquable partout */
+        .item-info { flex-grow: 1; padding: 8px 12px; font-size: 13px; font-weight: 600; display: flex; flex-direction: column; cursor: pointer; text-align: left; background: none; border: none; color: #5c4033; font-family: inherit; height: 100%; justify-content: center; transition: background 0.1s; }
         .item-info:hover { background: #fdfbf7; }
         .item-price { font-size: 12px; color: #a06a42; font-weight: normal; margin-top: 2px; pointer-events: none; }
         
-        .btn-action { width: 35px; height: 100%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.1s; display: flex; align-items: center; justify-content: center; }
-        .btn-plus { background: #a06a42; color: white; }
-        .btn-plus:hover { background: #b87d52; }
-        .btn-minus { background: #e3d1be; color: #5c4033; }
+        .btn-action { width: 40px; height: 100%; border: none; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.1s; display: flex; align-items: center; justify-content: center; }
+        .btn-minus { background: #e3d1be; color: #5c4033; border-right: 1px solid #ebdccb; }
         .btn-minus:hover { background: #d2bc9e; }
-        .qte-counter { display: none; width: 35px; text-align: center; font-weight: bold; font-size: 16px; color: #a06a42; pointer-events: none; }
+        
+        /* Case de quantité toujours visible à droite */
+        .qte-counter { display: flex; width: 45px; height: 100%; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; color: #a06a42; background: #fff; border-left: 1px solid #e3d1be; pointer-events: none; }
 
         .ticket-list { min-height: 120px; border-bottom: 1px dashed #c9a68a; margin-bottom: 10px; }
         .ticket-line { padding: 6px 0; font-size: 14px; border-bottom: 1px solid #f7f1e8; display: flex; justify-content: space-between; }
@@ -46,7 +46,7 @@
         .container { display: flex; gap: 20px; max-width: 1100px; width: 100%; }
         .menu-section { background: #fdfbf7; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex: 2; border: 2px solid #c9a68a; }
         .ticket-section { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex: 1.2; display: flex; flex-direction: column; border: 2px solid #c9a68a; min-width: 340px; }
-        .item-row { height: 45px; }
+        .item-row { height: 48px; }
 
         /* --- ADAPTATION MOBILE --- */
         @media (max-width: 768px) {
@@ -65,10 +65,9 @@
 
             .grid { display: flex; flex-direction: column; gap: 8px; }
             .item-row { height: 55px; background: #fff; border: 1px solid #c9a68a; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-            .item-info:active { background: #e3d1be; } /* Feedback tactile quand on appuie sur la ligne */
+            .item-info:active { background: #e3d1be; }
             .btn-action { width: 55px; font-size: 20px; }
-            .btn-minus { border-right: 1px solid #e3d1be; }
-            .qte-counter { display: flex; align-items: center; justify-content: center; border-left: 1px solid #e3d1be; height: 100%; background: #fdfbf7; }
+            .qte-counter { width: 55px; font-size: 18px; background: #fdfbf7; }
 
             .card-mobile { background: white; padding: 15px; border-radius: 8px; border: 1px solid #c9a68a; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
 
@@ -95,32 +94,32 @@
         
         <h3>Viennoiseries & Pains (Offre 3+1)</h3>
         <div class="grid">
-            <div class="item-row"><button class="item-info" onclick="modifier('Croissant', 3, 1)">Croissant <span class="item-price">(3€)</span></button><button class="btn-action btn-minus" onclick="modifier('Croissant', 3, -1)">-</button><span class="qte-counter" id="qte-Croissant">0</span><button class="btn-action btn-plus" onclick="modifier('Croissant', 3, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Pain au Chocolat', 3, 1)">Pain au Chocolat <span class="item-price">(3€)</span></button><button class="btn-action btn-minus" onclick="modifier('Pain au Chocolat', 3, -1)">-</button><span class="qte-counter" id="qte-Pain-au-Chocolat">0</span><button class="btn-action btn-plus" onclick="modifier('Pain au Chocolat', 3, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Baguette', 2, 1)">Baguette <span class="item-price">(2€)</span></button><button class="btn-action btn-minus" onclick="modifier('Baguette', 2, -1)">-</button><span class="qte-counter" id="qte-Baguette">0</span><button class="btn-action btn-plus" onclick="modifier('Baguette', 2, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Baguette Tradition', 2, 1)">Baguette Tradition <span class="item-price">(2€)</span></button><button class="btn-action btn-minus" onclick="modifier('Baguette Tradition', 2, -1)">-</button><span class="qte-counter" id="qte-Baguette-Tradition">0</span><button class="btn-action btn-plus" onclick="modifier('Baguette Tradition', 2, 1)">+</button></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Croissant', 3, -1)">-</button><button class="item-info" onclick="modifier('Croissant', 3, 1)">Croissant <span class="item-price">(3€)</span></button><span class="qte-counter" id="qte-Croissant">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Pain au Chocolat', 3, -1)">-</button><button class="item-info" onclick="modifier('Pain au Chocolat', 3, 1)">Pain au Chocolat <span class="item-price">(3€)</span></button><span class="qte-counter" id="qte-Pain-au-Chocolat">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Baguette', 2, -1)">-</button><button class="item-info" onclick="modifier('Baguette', 2, 1)">Baguette <span class="item-price">(2€)</span></button><span class="qte-counter" id="qte-Baguette">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Baguette Tradition', 2, -1)">-</button><button class="item-info" onclick="modifier('Baguette Tradition', 2, 1)">Baguette Tradition <span class="item-price">(2€)</span></button><span class="qte-counter" id="qte-Baguette-Tradition">0</span></div>
         </div>
 
         <h3>Pâtisseries & Snacks</h3>
         <div class="grid">
-            <div class="item-row"><button class="item-info" onclick="modifier('Éclair au Chocolat', 4, 1)">Éclair au Chocolat <span class="item-price">(4€)</span></button><button class="btn-action btn-minus" onclick="modifier('Éclair au Chocolat', 4, -1)">-</button><span class="qte-counter" id="qte-Éclair-au-Chocolat">0</span><button class="btn-action btn-plus" onclick="modifier('Éclair au Chocolat', 4, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Tartelette Fraise', 5, 1)">Tartelette Fraise <span class="item-price">(5€)</span></button><button class="btn-action btn-minus" onclick="modifier('Tartelette Fraise', 5, -1)">-</button><span class="qte-counter" id="qte-Tartelette-Fraise">0</span><button class="btn-action btn-plus" onclick="modifier('Tartelette Fraise', 5, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Tarte aux Pommes', 5, 1)">Tarte aux Pommes <span class="item-price">(5€)</span></button><button class="btn-action btn-minus" onclick="modifier('Tarte aux Pommes', 5, -1)">-</button><span class="qte-counter" id="qte-Tarte-aux-Pommes">0</span><button class="btn-action btn-plus" onclick="modifier('Tarte aux Pommes', 5, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Cheesecake Framboise', 6, 1)">Cheesecake Framboise <span class="item-price">(6€)</span></button><button class="btn-action btn-minus" onclick="modifier('Cheesecake Framboise', 6, -1)">-</button><span class="qte-counter" id="qte-Cheesecake-Framboise">0</span><button class="btn-action btn-plus" onclick="modifier('Cheesecake Framboise', 6, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Jambon Beurre', 7, 1)">Jambon Beurre <span class="item-price">(7€)</span></button><button class="btn-action btn-minus" onclick="modifier('Jambon Beurre', 7, -1)">-</button><span class="qte-counter" id="qte-Jambon-Beurre">0</span><button class="btn-action btn-plus" onclick="modifier('Jambon Beurre', 7, 1)">+</button></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Éclair au Chocolat', 4, -1)">-</button><button class="item-info" onclick="modifier('Éclair au Chocolat', 4, 1)">Éclair au Chocolat <span class="item-price">(4€)</span></button><span class="qte-counter" id="qte-Éclair-au-Chocolat">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Tartelette Fraise', 5, -1)">-</button><button class="item-info" onclick="modifier('Tartelette Fraise', 5, 1)">Tartelette Fraise <span class="item-price">(5€)</span></button><span class="qte-counter" id="qte-Tartelette-Fraise">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Tarte aux Pommes', 5, -1)">-</button><button class="item-info" onclick="modifier('Tarte aux Pommes', 5, 1)">Tarte aux Pommes <span class="item-price">(5€)</span></button><span class="qte-counter" id="qte-Tarte-aux-Pommes">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Cheesecake Framboise', 6, -1)">-</button><button class="item-info" onclick="modifier('Cheesecake Framboise', 6, 1)">Cheesecake Framboise <span class="item-price">(6€)</span></button><span class="qte-counter" id="qte-Cheesecake-Framboise">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Jambon Beurre', 7, -1)">-</button><button class="item-info" onclick="modifier('Jambon Beurre', 7, 1)">Jambon Beurre <span class="item-price">(7€)</span></button><span class="qte-counter" id="qte-Jambon-Beurre">0</span></div>
         </div>
 
         <h3>Boissons (Offre 3+1)</h3>
         <div class="grid">
-            <div class="item-row"><button class="item-info" onclick="modifier('Café', 2, 1)">Café <span class="item-price">(2€)</span></button><button class="btn-action btn-minus" onclick="modifier('Café', 2, -1)">-</button><span class="qte-counter" id="qte-Café">0</span><button class="btn-action btn-plus" onclick="modifier('Café', 2, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Chocolat Chaud', 2, 1)">Chocolat Chaud <span class="item-price">(2€)</span></button><button class="btn-action btn-minus" onclick="modifier('Chocolat Chaud', 2, -1)">-</button><span class="qte-counter" id="qte-Chocolat-Chaud">0</span><button class="btn-action btn-plus" onclick="modifier('Chocolat Chaud', 2, 1)">+</button></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Café', 2, -1)">-</button><button class="item-info" onclick="modifier('Café', 2, 1)">Café <span class="item-price">(2€)</span></button><span class="qte-counter" id="qte-Café">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Chocolat Chaud', 2, -1)">-</button><button class="item-info" onclick="modifier('Chocolat Chaud', 2, 1)">Chocolat Chaud <span class="item-price">(2€)</span></button><span class="qte-counter" id="qte-Chocolat-Chaud">0</span></div>
         </div>
 
         <h3>Formules Menus</h3>
         <div class="grid">
-            <div class="item-row"><button class="item-info" onclick="modifier('Menu Gourmand', 9, 1)">Menu Gourmand <span class="item-price">(9€)</span></button><button class="btn-action btn-minus" onclick="modifier('Menu Gourmand', 9, -1)">-</button><span class="qte-counter" id="qte-Menu-Gourmand">0</span><button class="btn-action btn-plus" onclick="modifier('Menu Gourmand', 9, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Balade Sucrée', 12, 1)">Balade Sucrée <span class="item-price">(12€)</span></button><button class="btn-action btn-minus" onclick="modifier('Balade Sucrée', 12, -1)">-</button><span class="qte-counter" id="qte-Balade-Sucrée">0</span><button class="btn-action btn-plus" onclick="modifier('Balade Sucrée', 12, 1)">+</button></div>
-            <div class="item-row"><button class="item-info" onclick="modifier('Pause du Gus\'', 14, 1)">Pause du Gus' <span class="item-price">(14€)</span></button><button class="btn-action btn-minus" onclick="modifier('Pause du Gus\'', 14, -1)">-</button><span class="qte-counter" id="qte-Pause-du-Gus\'">0</span><button class="btn-action btn-plus" onclick="modifier('Pause du Gus\'', 14, 1)">+</button></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Menu Gourmand', 9, -1)">-</button><button class="item-info" onclick="modifier('Menu Gourmand', 9, 1)">Menu Gourmand <span class="item-price">(9€)</span></button><span class="qte-counter" id="qte-Menu-Gourmand">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Balade Sucrée', 12, -1)">-</button><button class="item-info" onclick="modifier('Balade Sucrée', 12, 1)">Balade Sucrée <span class="item-price">(12€)</span></button><span class="qte-counter" id="qte-Balade-Sucrée">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Pause du Gus\'', 14, -1)">-</button><button class="item-info" onclick="modifier('Pause du Gus\'', 14, 1)">Pause du Gus' <span class="item-price">(14€)</span></button><span class="qte-counter" id="qte-Pause-du-Gus\'">0</span></div>
         </div>
     </div>
 
