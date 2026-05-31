@@ -92,7 +92,7 @@
     <div id="screen-menu" class="menu-section active">
         <h1>🥖 Maison du Pain</h1>
         
-        <h3>Viennoiseries & Pains (Offre 3+1)</h3>
+        <h3>Viennoiseries & Pains (Offre 3 achetés = 1 offert max)</h3>
         <div class="grid">
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Croissant', 3, -1)">-</button><button class="item-info" onclick="modifier('Croissant', 3, 1)">Croissant <span class="item-price">(3€)</span></button><span class="qte-counter" id="qte-Croissant">0</span></div>
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Pain au Chocolat', 3, -1)">-</button><button class="item-info" onclick="modifier('Pain au Chocolat', 3, 1)">Pain au Chocolat <span class="item-price">(3€)</span></button><span class="qte-counter" id="qte-Pain-au-Chocolat">0</span></div>
@@ -109,7 +109,7 @@
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Jambon Beurre', 7, -1)">-</button><button class="item-info" onclick="modifier('Jambon Beurre', 7, 1)">Jambon Beurre <span class="item-price">(7€)</span></button><span class="qte-counter" id="qte-Jambon-Beurre">0</span></div>
         </div>
 
-        <h3>Boissons (Offre 3+1)</h3>
+        <h3>Boissons (Offre 3 achetés = 1 offert max)</h3>
         <div class="grid">
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Café', 2, -1)">-</button><button class="item-info" onclick="modifier('Café', 2, 1)">Café <span class="item-price">(2€)</span></button><span class="qte-counter" id="qte-Café">0</span></div>
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Chocolat Chaud', 2, -1)">-</button><button class="item-info" onclick="modifier('Chocolat Chaud', 2, 1)">Chocolat Chaud <span class="item-price">(2€)</span></button><span class="qte-counter" id="qte-Chocolat-Chaud">0</span></div>
@@ -140,7 +140,7 @@
 
         <div class="total-box">TOTAL : <span class="total-prix-render">0</span> €</div>
         <button class="btn-clear" onclick="reinitialiser()">Nouvelle Commande</button>
-        <div class="note">Maison du Pain - Paris © Système automatique : toutes les 3 unités payées, le 4ème article offert s'ajoute directement à la cuisine.</div>
+        <div class="note">Maison du Pain - Paris © Système automatique : à partir de 3 unités d'un produit éligible achetées, 1 article gratuit unique s'ajoute directement en cuisine.</div>
     </div>
 </div>
 
@@ -221,10 +221,11 @@
                 preparationCuisine[nom] = (preparationCuisine[nom] || 0) + item.qte;
             }
 
+            // Nouvelle logique : Dès que la quantité est >= 3, on offre STRICTEMENT 1 seul article
             if (produitsEligiblesPromo.includes(nom) && item.qte >= 3) {
-                let lotsDeTrois = Math.floor(item.qte / 3);
-                preparationCuisine[nom] = (preparationCuisine[nom] || 0) + lotsDeTrois;
-                htmlPromo += `<div class="promo-line">🎁 +${lotsDeTrois} ${nom} Offert(s) ajouté(s) en cuisine !</div>`;
+                let uniqueOffert = 1;
+                preparationCuisine[nom] = (preparationCuisine[nom] || 0) + uniqueOffert;
+                htmlPromo += `<div class="promo-line">🎁 +${uniqueOffert} ${nom} Offert ajouté en cuisine !</div>`;
             }
         }
 
