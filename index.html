@@ -102,6 +102,8 @@
 
         <h3>Pâtisseries & Snacks</h3>
         <div class="grid">
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Macaron unique', 3, -1)">-</button><button class="item-info" onclick="modifier('Macaron unique', 3, 1)">Macaron à l'unité <span class="item-price">(3€)</span></button><span class="qte-counter" id="qte-Macaron-unique">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Lot de 4 Macarons', 10, -1)">-</button><button class="item-info" onclick="modifier('Lot de 4 Macarons', 10, 1)">Lot de 4 Macarons <span class="item-price">(10€) 🎁 +1 Café</span></button><span class="qte-counter" id="qte-Lot-de-4-Macarons">0</span></div>
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Éclair au Chocolat', 4, -1)">-</button><button class="item-info" onclick="modifier('Éclair au Chocolat', 4, 1)">Éclair au Chocolat <span class="item-price">(4€)</span></button><span class="qte-counter" id="qte-Éclair-au-Chocolat">0</span></div>
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Tartelette Fraise', 5, -1)">-</button><button class="item-info" onclick="modifier('Tartelette Fraise', 5, 1)">Tartelette Fraise <span class="item-price">(5€)</span></button><span class="qte-counter" id="qte-Tartelette-Fraise">0</span></div>
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Tarte aux Pommes', 5, -1)">-</button><button class="item-info" onclick="modifier('Tarte aux Pommes', 5, 1)">Tarte aux Pommes <span class="item-price">(5€)</span></button><span class="qte-counter" id="qte-Tarte-aux-Pommes">0</span></div>
@@ -205,9 +207,11 @@
             let elementCompteur = document.getElementById(safeId);
             if(elementCompteur) elementCompteur.innerText = item.qte;
 
+            // Affichage propre sur le ticket de caisse
+            let nomAffichageTicket = nom === 'Macaron unique' ? "Macaron" : nom;
             htmlTicket += `<div class="ticket-line">
                 <div class="ticket-main">
-                    <span><strong>${item.qte}x</strong> ${nom}</span>
+                    <span><strong>${item.qte}x</strong> ${nomAffichageTicket}</span>
                     <span>${prixLigne} €</span>
                 </div>
             </div>`;
@@ -217,11 +221,17 @@
                     let qteComposant = detailsMenus[nom][composant] * item.qte;
                     preparationCuisine[composant] = (preparationCuisine[composant] || 0) + qteComposant;
                 }
+            } else if (nom === 'Lot de 4 Macarons') {
+                // Règle Promo Macarons : 4 macarons physiques + 1 Café offert en cuisine par lot acheté
+                preparationCuisine['4x Macarons'] = (preparationCuisine['4x Macarons'] || 0) + item.qte;
+                preparationCuisine['Café'] = (preparationCuisine['Café'] || 0) + item.qte;
+                htmlPromo += `<div class="promo-line">🎁 ${item.qte}x Café(s) Offert(s) (Promo Lot Macarons) !</div>`;
             } else {
-                preparationCuisine[nom] = (preparationCuisine[nom] || 0) + item.qte;
+                let nomCuisine = nom === 'Macaron unique' ? "Macaron" : nom;
+                preparationCuisine[nomCuisine] = (preparationCuisine[nomCuisine] || 0) + item.qte;
             }
 
-            // Nouvelle logique : Dès que la quantité est >= 3, on offre STRICTEMENT 1 seul article
+            // Offre classique 3+1 (Maximum 1 unique par produit)
             if (produitsEligiblesPromo.includes(nom) && item.qte >= 3) {
                 let uniqueOffert = 1;
                 preparationCuisine[nom] = (preparationCuisine[nom] || 0) + uniqueOffert;
