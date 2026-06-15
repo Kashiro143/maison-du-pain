@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Caisse - Maison du Pain</title>
+    <title>Caisse - Maison du Pain - Lallement</title>
     <style>
         /* --- STYLES GENERAUX DE BASE --- */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -102,8 +102,8 @@
 
         <h3>Pâtisseries & Snacks</h3>
         <div class="grid">
-            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Macaron unique', 3, -1)">-</button><button class="item-info" onclick="modifier('Macaron unique', 3, 1)">Macaron à l'unité <span class="item-price">(3€)</span></button><span class="qte-counter" id="qte-Macaron-unique">0</span></div>
-            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Lot de 4 Macarons', 10, -1)">-</button><button class="item-info" onclick="modifier('Lot de 4 Macarons', 10, 1)">Lot de 4 Macarons <span class="item-price">(10€) 🎁 +1 Café</span></button><span class="qte-counter" id="qte-Lot-de-4-Macarons">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Macaron unique', 4, -1)">-</button><button class="item-info" onclick="modifier('Macaron unique', 4, 1)">Macaron à l'unité <span class="item-price">(4€)</span></button><span class="qte-counter" id="qte-Macaron-unique">0</span></div>
+            <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Lot de 4 Macarons', 15, -1)">-</button><button class="item-info" onclick="modifier('Lot de 4 Macarons', 15, 1)">Lot de 4 Macarons <span class="item-price">(15€)</span></button><span class="qte-counter" id="qte-Lot-de-4-Macarons">0</span></div>
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Éclair au Chocolat', 4, -1)">-</button><button class="item-info" onclick="modifier('Éclair au Chocolat', 4, 1)">Éclair au Chocolat <span class="item-price">(4€)</span></button><span class="qte-counter" id="qte-Éclair-au-Chocolat">0</span></div>
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Tartelette Fraise', 5, -1)">-</button><button class="item-info" onclick="modifier('Tartelette Fraise', 5, 1)">Tartelette Fraise <span class="item-price">(5€)</span></button><span class="qte-counter" id="qte-Tartelette-Fraise">0</span></div>
             <div class="item-row"><button class="btn-action btn-minus" onclick="modifier('Tarte aux Pommes', 5, -1)">-</button><button class="item-info" onclick="modifier('Tarte aux Pommes', 5, 1)">Tarte aux Pommes <span class="item-price">(5€)</span></button><span class="qte-counter" id="qte-Tarte-aux-Pommes">0</span></div>
@@ -142,7 +142,7 @@
 
         <div class="total-box">TOTAL : <span class="total-prix-render">0</span> €</div>
         <button class="btn-clear" onclick="reinitialiser()">Nouvelle Commande</button>
-        <div class="note">Maison du Pain - Paris © Système automatique : à partir de 3 unités d'un produit éligible achetées, 1 article gratuit unique s'ajoute directement en cuisine.</div>
+        <div class="note">Maison du Pain - Lallement © Système automatique : à partir de 3 unités d'un produit éligible achetées, 1 article gratuit unique s'ajoute directement en cuisine.</div>
     </div>
 </div>
 
@@ -222,10 +222,7 @@
                     preparationCuisine[composant] = (preparationCuisine[composant] || 0) + qteComposant;
                 }
             } else if (nom === 'Lot de 4 Macarons') {
-                // Règle Promo Macarons : 4 macarons physiques + 1 Café offert en cuisine par lot acheté
                 preparationCuisine['4x Macarons'] = (preparationCuisine['4x Macarons'] || 0) + item.qte;
-                preparationCuisine['Café'] = (preparationCuisine['Café'] || 0) + item.qte;
-                htmlPromo += `<div class="promo-line">🎁 ${item.qte}x Café(s) Offert(s) (Promo Lot Macarons) !</div>`;
             } else {
                 let nomCuisine = nom === 'Macaron unique' ? "Macaron" : nom;
                 preparationCuisine[nomCuisine] = (preparationCuisine[nomCuisine] || 0) + item.qte;
